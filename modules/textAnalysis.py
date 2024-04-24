@@ -12,6 +12,9 @@ def analysis(df):
     documents = df[0:10]
     response = text_analytics_client.analyze_sentiment(documents=documents)
 
+    negativeComments = []
+    positiveComments = []
+    neutralComments = []
     positive = 0
     negative = 0
     neutral = 0
@@ -24,20 +27,28 @@ def analysis(df):
         response = text_analytics_client.analyze_sentiment(documents=documents)
 
         for document in response:
+            data = {
+                    "text": document['sentences'][0].text,
+                    "positive": document['confidence_scores'].positive,
+                    "negative": document['confidence_scores'].negative,
+                    "neutral": document['confidence_scores'].neutral
+                    }
             # print("Document Sentiment: {}".format(document.sentiment))
             if document.sentiment == "positive":
+                positiveComments.append(data)
                 positive += 1
             elif document.sentiment == "negative":
+                negativeComments.append(data)
                 negative += 1
             else:
+                neutralComments.append(data)
                 neutral += 1
             
             p_score += document.confidence_scores.positive
             n_score += document.confidence_scores.negative
             ne_score += document.confidence_scores.neutral
 
-
-    return positive, negative, neutral, p_score/len(df), n_score/len(df), ne_score/len(df)
+    return positive, negative, neutral, p_score/len(df), n_score/len(df), ne_score/len(df) , positiveComments, negativeComments , neutralComments
 
 
 

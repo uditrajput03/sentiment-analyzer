@@ -10,9 +10,6 @@ import base64
 
 app = Flask(__name__)
 
-
-
-
 # Define a custom filter function
 def format_datetime(value, format='%B %d, %Y at %I:%M %p'):
     try:
@@ -63,8 +60,11 @@ def analyze_video():
         df = comment.get_comments(video_id)
         statistics = comment.get_statistics(video_id)
         translate_df = HtoHE.translate(df)
-        positive, negative, neutral, p_score, n_score, ne_score = textAnalysis.analysis(translate_df)
+        positive, negative, neutral, p_score, n_score, ne_score , positiveComments, negativeComments , neutralComments = textAnalysis.analysis(translate_df)
         textData = {
+            "negativeComments": negativeComments,
+            "positiveComments": positiveComments,
+            "neutralComments": neutralComments,
             "positive": positive,
             "negative": negative,
             "neutral": neutral,
@@ -88,8 +88,25 @@ def analyze_video():
 def test():
     return render_template('index_text.html')
 
-
-    
+@app.route("/comments" , methods=['GET'])
+def tt():
+        video_id = "bL852kvYP1E"
+        df = comment.get_comments(video_id)
+        statistics = comment.get_statistics(video_id)
+        translate_df = HtoHE.translate(df)
+        positive, negative, neutral, p_score, n_score, ne_score , positiveComments, negativeComments , neutralComments = textAnalysis.analysis(translate_df)
+        textData = {
+            "positiveComment": positiveComments,
+            "negativeComment": negativeComments,
+            "neutralComment": neutralComments,
+            "positive": positive,
+            "negative": negative,
+            "neutral": neutral,
+            "p_score": p_score,
+            "n_score": n_score,
+            "ne_score": ne_score
+        }
+        return textData
 
 @app.route("/youtube/<id>")
 def youtube(id):
