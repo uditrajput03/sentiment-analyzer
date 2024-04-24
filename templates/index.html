@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  <div id="main-div">
   <div id="left-section">
     <h3>YouTube Comment Analyzer</h3>
     <form action="/" method="post">
@@ -47,22 +48,116 @@
         </div>
       </div>
       {% if textData %}
+      <div id="negativecomment-container"> 
+        <div id="table-container">
+            <table>
+                <colgroup>
+                    <col style="width: 50%;">
+                    <col style="width: 20%;">
+                    <col style="width: 20%;">
+                    <col style="width: 20%;">
+                  </colgroup>
+                <thead>
+                <tr>
+                    <th>Comment</th>
+                    <th>Positive</th>
+                    <th>Negative</th>
+                    <th>Neutral</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for c in textData.negativeComments %}
+                <tr>
+                    <td>{{c.text}}</td>
+                    <td>{{c.positive}}</td>
+                    <td>{{c.negative}}</td>
+                    <td>{{c.neutral}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="negative-close-btn">X</div>
+    </div> 
+      <div id="positivecomment-container"> 
+        <div id="table-container">
+            <table>
+                <colgroup>
+                    <col style="width: 50%;">
+                    <col style="width: 20%;">
+                    <col style="width: 20%;">
+                    <col style="width: 20%;">
+                  </colgroup>
+                <thead>
+                <tr>
+                    <th>Comment</th>
+                    <th>Positive</th>
+                    <th>Negative</th>
+                    <th>Neutral</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for c in textData.positiveComments %}
+                <tr>
+                    <td>{{c.text}}</td>
+                    <td>{{c.positive}}</td>
+                    <td>{{c.negative}}</td>
+                    <td>{{c.neutral}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="positive-close-btn">X</div>
+    </div> 
+
+      <div id="neutralcomment-container"> 
+        <div id="table-container">
+            <table>
+                <colgroup>
+                    <col style="width: 50%;">
+                    <col style="width: 20%;">
+                    <col style="width: 20%;">
+                    <col style="width: 20%;">
+                  </colgroup>
+                <thead>
+                <tr>
+                    <th>Comment</th>
+                    <th>Positive</th>
+                    <th>Negative</th>
+                    <th>Neutral</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for c in textData.neutralComments %}
+                <tr>
+                    <td>{{c.text}}</td>
+                    <td>{{c.positive}}</td>
+                    <td>{{c.negative}}</td>
+                    <td>{{c.neutral}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="neutral-close-btn">X</div>
+    </div> 
+
       <div class="ana">
         <h1>Comment Analysis Result</h1>
         <div class="container">
-          <div class="box box1">
+          <button class="box box1" id="positiveBtn">
             <p>Positive Comments</p>
-            <p>Total Count: {{textData.positive}}</p>
-          </div>
-          <div class="box box3">
+            <p>Total Count: <span id="positiveCount">{{textData.positive}}</span></p>
+          </button>
+          <button class="box box3" id="neutralBtn">
             <p>Neutral Comments</p>
-            <p>Total Count: {{textData.neutral}}</p>
-          </div>
-          <div class="box box2">
+            <p>Total Count: <span id="neutralCount">{{textData.neutral}}</span></p>
+          </button>          
+          <button class="box box2" id="negativeBtn">
             <p>Negative Comments</p>
-            <p>Total Count: {{textData.negative}}</p>
-          </div>
-          
+            <p>Total Count: <span id="negativeCount">{{textData.negative}}</span></p>
+          </button>
         </div>
       </div>
       {% endif %}
@@ -88,8 +183,47 @@
       {% endif %}
     </div>
   </div>
+  </div>
 </body>
 <script>
+const negativeBtn = document.getElementById('negativeBtn')
+const positiveBtn = document.getElementById('positiveBtn')
+const neutralBtn = document.getElementById('neutralBtn')
+const tableContainer = document.getElementById('table-container')
+
+const negativeClose = document.getElementById('negative-close-btn')
+const positiveClose = document.getElementById('positive-close-btn')
+const neutralClose = document.getElementById('neutral-close-btn')
+
+const negativeContainer = document.getElementById('negativecomment-container')
+const positiveContainer = document.getElementById('positivecomment-container')
+const neutralContainer = document.getElementById('neutralcomment-container')
+negativeBtn.addEventListener('click', () => {
+    negativeContainer.style.display = "flex"
+    negativeClose.style.visibility = "visible"
+})
+positiveBtn.addEventListener('click', () => {
+    positiveContainer.style.display = "flex"
+    positiveClose.style.visibility = "visible"
+})
+neutralBtn.addEventListener('click', () => {
+    neutralContainer.style.display = "flex"
+    neutralClose.style.visibility = "visible"
+})
+negativeClose.addEventListener('click', () => {
+    negativeContainer.style.display = "none"
+    negativeClose.style.visibility = "hidden"
+})
+positiveClose.addEventListener('click', () => {
+    positiveContainer.style.display = "none"
+    positiveClose.style.visibility = "hidden"
+})
+neutralClose.addEventListener('click', () => {
+    neutralContainer.style.display = "none"
+    neutralClose.style.visibility = "hidden"
+})
+
+
   function changeGraph() {
     var selectedValue = document.getElementById('graph-type').value
 

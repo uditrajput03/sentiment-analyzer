@@ -19,7 +19,9 @@ body {
     display: flex;
     height: 100vh;
 }
-
+#main-div{
+    flex: auto;
+}
 #left-section {
     width: 20%;
     background-color: #323341;
@@ -213,4 +215,60 @@ option:hover {
 .ana p {
     font-size: 20px;
     margin-bottom: 10px;
+}
+
+/* ----------------------------------- */
+#comment-main{
+    position: absolute;
+}
+#negativecomment-container , #positivecomment-container , #neutralcomment-container{
+    background: white;
+    display: none;
+    height: 100vh;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+#table-container{
+    width: 80%;
+    height: 80%;
+    border: gray solid 1px;
+    border-radius: 10px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+table {
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tr:hover {
+    background-color: #ddd;
+  }
+
+#negative-close-btn , #positive-close-btn, #neutral-close-btn {
+color: red;
+border-radius: 50%;
+border: 1px gray solid;
+padding: 5px 8px;
+visibility: hidden;
+position: absolute;
+top: 10px;
+right: 10px;
+cursor: pointer;
 }
