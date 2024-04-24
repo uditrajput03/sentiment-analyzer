@@ -18,7 +18,7 @@
       <button type="submit">Analyse</button>
     </form>
     {% if statistics %}
-    <iframe id="video_embed" width="300" height="200" src="https://www.youtube.com/embed/{{ video_id }}"></iframe>
+    <iframe id="video_embed" width="250" src="https://www.youtube.com/embed/{{ video_id }}"></iframe>
     <p class="video_name">{{ statistics.video_name }}</p>
     <h4 id="channel_name">{{ statistics.channel_name }}</h4>
     {% elif error %}
