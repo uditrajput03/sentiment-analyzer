@@ -3,8 +3,10 @@ from azure.core.credentials import AzureKeyCredential
 
 
 def analysis(df):
-
-    key = "871423458701473dbd26b0b89ecc4358"
+    import os
+    from dotenv import load_dotenv
+    load_dotenv()
+    key = os.environ.get('AZURE_ANALYSIS')
     endpoint = "https://sentimentcomment.cognitiveservices.azure.com/"
 
     text_analytics_client = TextAnalyticsClient(endpoint=endpoint, credential=AzureKeyCredential(key))

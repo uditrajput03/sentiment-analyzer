@@ -1,8 +1,9 @@
 def translate(df=None):
-    import requests, uuid, json
-
+    import requests, uuid, json, os
+    from dotenv import load_dotenv
+    load_dotenv()
     # Add your key and endpoint
-    key = "002c43301bf74ccfa3539904e13f8904"
+    key = os.environ.get('AZURE_TRANSLATE')
     endpoint = "https://api.cognitive.microsofttranslator.com"
 
     # location, also known as region.
